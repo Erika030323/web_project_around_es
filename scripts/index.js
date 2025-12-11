@@ -26,3 +26,15 @@ const initialCards = [
 initialCards.forEach(function(card) {
     console.log(card.name);
 });
+
+const editPopup = document.querySelector(`#edit-popup`);
+const editButton = document.querySelector(`.profile__edit-button`);
+const closeButton = document.querySelector(`.popup__close`);
+
+editButton.addEventListener("click", function openPopup() {
+    editPopup.classList.add("popup_is-opened")
+});
+
+closeButton.addEventListener("click", function closePopup() {
+    editPopup.classList.remove("popup_is-opened")
+});
