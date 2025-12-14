@@ -39,21 +39,25 @@ const nameInput = editPopup.querySelector(`.popup__input_type_name`);
 const jobInput = editPopup.querySelector(`.popup__input_type_description`);
 const formElement = editPopup.querySelector(`.popup__form`);
 
-function openModal() {
-    editPopup.classList.add(`popup_is-opened`);
-    fillFormFields();
+function openModal(modal) {
+    modal.classList.add(`popup_is-opened`);    
 } 
 
 function closeModal() {
     editPopup.classList.remove(`popup_is-opened`);
 } 
 
-function fillFormFields() {
+function fillProfileForm() {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
 }
 
-editButton.addEventListener("click", openModal);
+function handleOpenEditModal() {
+    fillProfileForm();
+    openModal(editPopup);
+}
+
+editButton.addEventListener("click", handleOpenEditModal);
 closeButton.addEventListener("click", closeModal);
 
 formElement.addEventListener(`submit`, function(evt) {
