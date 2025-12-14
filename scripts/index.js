@@ -43,8 +43,8 @@ function openModal(modal) {
     modal.classList.add(`popup_is-opened`);    
 } 
 
-function closeModal() {
-    editPopup.classList.remove(`popup_is-opened`);
+function closeModal(modal) {
+    modal.classList.remove(`popup_is-opened`);
 } 
 
 function fillProfileForm() {
@@ -57,14 +57,18 @@ function handleOpenEditModal() {
     openModal(editPopup);
 }
 
-editButton.addEventListener("click", handleOpenEditModal);
-closeButton.addEventListener("click", closeModal);
-
-formElement.addEventListener(`submit`, function(evt) {
+function handleProfileFormSubmit(evt) {
     evt.preventDefault();
 
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
 
-    closeModal();   
+    closeModal(editPopup); 
+}
+
+editButton.addEventListener("click", handleOpenEditModal);
+closeButton.addEventListener("click", function() {
+    closeModal(editPopup);
 });
+
+formElement.addEventListener(`submit`, handleProfileFormSubmit);
