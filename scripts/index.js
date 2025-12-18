@@ -72,3 +72,25 @@ closeButton.addEventListener("click", function() {
 });
 
 formElement.addEventListener(`submit`, handleProfileFormSubmit);
+
+const cardTemplate = document.querySelector(`#card-template`);
+
+function getCardElement(name = "Unnamed place", link = "./images/placeholder.jpg") {
+    const cardElement = cardTemplate.content.cloneNode(true);
+    cardElement.querySelector(`.card__title`).textContent = name;
+
+    const cardImage = cardElement.querySelector(`.card__image`);
+    cardImage.src = link;
+    cardImage.alt = name;
+
+    return cardElement;
+}
+
+function renderCard(name, link, container) {
+    const cardElement = getCardElement(name, link);
+    container.prepend(cardElement);
+}
+
+initialCards.forEach((card) => {
+    renderCard(card.name, card.link, cardsContainer);
+});
