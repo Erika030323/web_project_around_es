@@ -82,7 +82,7 @@ function getCardElement(name = "Unnamed place", link = "./images/placeholder.jpg
 
     //seleccionar el boton "me gusta"
     const likeButton = cardElement.querySelector(`.card__like-button`);
-    likeButton.addEventListener(`click, handleLikeButton`);
+    likeButton.addEventListener(`click,` handleLikeButton);
     
     return cardElement;
 }
