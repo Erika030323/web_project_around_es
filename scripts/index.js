@@ -23,10 +23,6 @@ const initialCards = [
     }
 ];
 
-initialCards.forEach(function(card) {
-    console.log(card.name);
-});
-
 //Modal y botones
 const editPopup = document.querySelector(`#edit-popup`);
 const editButton = document.querySelector(`.profile__edit-button`);
@@ -74,6 +70,7 @@ closeButton.addEventListener("click", function() {
 formElement.addEventListener(`submit`, handleProfileFormSubmit);
 
 const cardTemplate = document.querySelector(`#card-template`);
+const cardsContainer = document.querySelector(`.cards__list`);
 
 function getCardElement(name = "Unnamed place", link = "./images/placeholder.jpg") {
     const cardElement = cardTemplate.content.cloneNode(true);
@@ -94,3 +91,36 @@ function renderCard(name, link, container) {
 initialCards.forEach((card) => {
     renderCard(card.name, card.link, cardsContainer);
 });
+
+const addButton = document.querySelector(`.profile__add-button`);
+const addCardPopup = document.querySelector(`#new-card-popup`);
+const addCardCloseButton = addCardPopup.querySelector(`.popup__close`);
+
+addButton.addEventListener(`click`, function() {
+    openModal(addCardPopup);
+});
+
+addCardCloseButton.addEventListener(`click`, function() {
+    closeModal(addCardPopup);
+});
+
+function handleCardFormSubmit(evt) {
+    evt.preventDefault();
+
+    //Valores de los campos del formulario para agregar mas imagenes
+    const cardNameInput = addCardPopup.querySelector(`.popup__input_type_card-name`);
+    const cardLinkInput = addCardPopup.querySelector(`.popup__input_type_url`);
+
+    const cardName = cardNameInput.value;
+    const cardLink = cardLinkInput.value;
+
+    //crear y agregar la nueva tarjeta de img
+    renderCard(cardName, cardLink, cardsContainer);
+    //cerrar la ventana emergente
+    closeModal(addCardPopup);
+    //limpiar el formulario
+    evt.target.reset();    
+}
+
+const addCardForm = addCardPopup.querySelector(`.popup__form`);
+addCardForm.addEventListener(`submit`, handleCardFormSubmit);
