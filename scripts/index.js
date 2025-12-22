@@ -84,9 +84,14 @@ function getCardElement(name = "Unnamed place", link = "./images/placeholder.jpg
     const likeButton = cardElement.querySelector(`.card__like-button`);
     likeButton.addEventListener(`click`, handleLikeButton);
     
+    const deleteButton = cardElement.querySelector(`.card__delete-button`);
+    deleteButton.addEventListener(`click`, function() {
+        deleteButton.closest(`.card`).remove();
+    });
+
     return cardElement;
 }
-
+//hacer que la funcion de me gusta a la img
 function handleLikeButton(evt) {
     evt.target.classList.toggle(`card__like-button_is-active`);
 }
