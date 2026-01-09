@@ -73,19 +73,29 @@
             type="button"
           ></button>
           <h3 class="popup__title">Editar perfil</h3>
-          <form class="popup__form" id="edit-profile-form">
+          <form class="popup__form" id="edit-profile-form" novalidate>
             <input
               class="popup__input popup__input_type_name"
               name="name"
               placeholder="Nombre"
               type="text"
-            />
+              minlength="2"
+              maxlength="40"
+              required
+            /> 
+            <span class="popup__error name-error"></span>
+
             <input
               class="popup__input popup__input_type_description"
               name="description"
               placeholder="Acerca de mí"
               type="text"
+              minlength="2"
+              maxlength="200"
+              required
             />
+            <span class="popup__error description-error"></span>
+            
             <button class="button popup__button" type="submit">Guardar</button>
           </form>
         </div>
