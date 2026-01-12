@@ -232,3 +232,16 @@ enableValidation({
     inputErrorClass: 'popup__input_type_error',
     errorClass: 'popup__error_visible'
 });
+
+//Verificar que el clic sea especificamente en la superposicion
+function closePopupOnOverlay(evt) {
+    if(evt.target === evt.currentTarget) {
+        closeModal(evt.target);
+    }
+}
+
+//Anadir el event listener a todos los popups
+const popups = document.querySelectorAll('.popup');
+popups.forEach((popup) => {
+    popup.addEventListener('click', closePopupOnOverlay);
+});
