@@ -189,10 +189,10 @@ const toggleButtonState = (inputList, buttonElement) => {
         return!inputElement.validity.valid;
     });
     if(hasInvalidInput) {
-        buttonElement.classList.add(popup__button_disabled);
+        buttonElement.classList.add('popup__button_disabled');
         buttonElement.disabled = true;
     } else {
-        buttonElement.classList.remove(popup__button_disabled);
+        buttonElement.classList.remove('popup__button_disabled');
         buttonElement.disabled = false;
     }
 };
@@ -210,9 +210,25 @@ const enableValidation = (settings) => {
 };
 
 //funcion para agregar event listeners a los inputs
-const setEventListeners = (formElement, settings => {
+const setEventListeners = (formElement, settings) => {
     const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
     const buttonElement = formElement.querySelector(settings.submitButtonSelector);
 
     toggleButtonState(inputList, buttonElement);
+
+    inputList.forEach((inputElement) => {
+        inputElement.addEventListener('input', () => {
+            checkInputValidity(formElement, inputElement);
+            toggleButtonState(inputList, buttonElement);
+        });
+    });
+};
+
+enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
 });
