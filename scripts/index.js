@@ -40,13 +40,24 @@ const modalImage = imageModal.querySelector(`.popup__image`);
 const modalCaption = imageModal.querySelector(`.popup__caption`);
 const imageModalCloseButton = imageModal.querySelector(`.popup__close`);
 
+function closePopupOnEsc(evt) {
+    if (evt.key === "Escape") {
+        const openedPopup = document.querySelector('.popup_is-opened');
+        if (openedPopup) {
+            closeModal(openedPopup);
+        }
+    }
+}
+
 function openModal(modal) {
-    modal.classList.add(`popup_is-opened`);    
-} 
+    modal.classList.add('popup_is-opened');
+    document.addEventListener('keydown', closePopupOnEsc);
+}
 
 function closeModal(modal) {
-    modal.classList.remove(`popup_is-opened`);
-} 
+    modal.classList.remove('popup_is-opened');
+    document.removeEventListener('keydown', closePopupOnEsc);
+}
 
 function fillProfileForm() {
     nameInput.value = profileName.textContent;
@@ -55,6 +66,14 @@ function fillProfileForm() {
 
 function handleOpenEditModal() {
     fillProfileForm();
+
+    //Restablecer validacion del formulario de editar perfil
+    resetFormValidation(formElement, {
+        inputSelector:'.popup__input',
+        submitButtonSelector: '.popup__button',
+        inactiveButtonClass: 'popup__button_disabled'
+    });
+
     openModal(editPopup);
 }
 
@@ -126,10 +145,6 @@ initialCards.forEach((card) => {
 const addButton = document.querySelector(`.profile__add-button`);
 const addCardPopup = document.querySelector(`#new-card-popup`);
 const addCardCloseButton = addCardPopup.querySelector(`.popup__close`);
-
-addButton.addEventListener(`click`, function() {
-    openModal(addCardPopup);
-});
 
 addCardCloseButton.addEventListener(`click`, function() {
     closeModal(addCardPopup);
@@ -244,4 +259,40 @@ function closePopupOnOverlay(evt) {
 const popups = document.querySelectorAll('.popup');
 popups.forEach((popup) => {
     popup.addEventListener('click', closePopupOnOverlay);
+});
+
+//Obtener todos los inputs del formulario
+function resetFormValidation(formElement, settings) {
+    const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+    const buttonElement = formElement.querySelector(settings.submitButtonSelector);
+
+    //Limpiar c/d input
+    inputList.forEach((inputElement) => {
+        hideInputError(formElement, inputElement);
+    });
+
+    //Desactivar el boton
+    buttonElement.classList.add(settings.inactiveButtonClass);
+    buttonElement.disabled = true;
+}
+
+//Funcion para limpiar los campos
+function clearFormFields(formElement) {
+    const inputs = formElement.querySelectorAll('input');
+    inputs.forEach((input) => {
+        input.value = '';
+    });
+}
+
+addButton.addEventListener('click', function() {
+    //Limpiar campos del formulario
+    clearFormFields(addCardForm);
+
+    //Restablecer validacion
+    resetFormValidation(addCardForm, {
+        inputSelector: '.popup__input',
+        submitButtonSelector: '.popup__button',
+        inactiveButtonClass: 'popup__button_disabled'
+    });
+    openModal(addCardPopup);
 });
