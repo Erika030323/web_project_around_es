@@ -1,0 +1,1 @@
+import {initialCards, validationSettings } from './data.js';
