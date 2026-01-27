@@ -62,10 +62,11 @@ const cardTemplate = document.querySelector(`#card-template`);
 const cardsContainer = document.querySelector(`.cards__list`);
 
 initialCards.forEach((cardData) => {
-    const card = new Card(cardData, '#card_template');
+    const card = new Card(cardData, '#card-template');
     const cardElement = card.generateCard();
     cardsContainer.prepend(cardElement);
 });
+
 const addButton = document.querySelector(`.profile__add-button`);
 const addCardPopup = document.querySelector(`#new-card-popup`);
 const addCardCloseButton = addCardPopup.querySelector(`.popup__close`);
