@@ -49,10 +49,3 @@ export function resetFormValidation(formElement, settings) {
     buttonElement.disabled = true;
 }
 
-//funcion para mostrar error
-function hideInputError (formElement, inputElement) => {
-    const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
-    inputElement.classList.remove(`popup__input_type_error`);
-    errorElement.classList.remove(`popup__error_visible`);
-    errorElement.textContent = "";
-};
