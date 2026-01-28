@@ -31,30 +31,6 @@ export function closePopupOnOverlay(evt) {
 export function clearFormFields(formElement) {
     const inputs = formElement.querySelectorAll('input');
     inputs.forEach((input) => {
-        input.value = '';
+        input.value ='';
     });
-}
-
-//Obtener todos los inputs del formulario
-export function resetFormValidation(formElement, settings) {
-    const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
-    const buttonElement = formElement.querySelector(settings.submitButtonSelector);
-
-    //Limpiar cada input
-    inputList.forEach((inputElement) => {
-        hideInputError(formElement, inputElement);
-    });
-
-    //Desactivar el boton
-    buttonElement.classList.add(settings.inactiveButtonClass);
-    buttonElement.disabled = true;
-}
-
-function hideInputError(formElement, inputElement) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('popup__input_type_error');
-    if (errorElement) {
-        errorElement.classList.remove('popup__error_visible');
-        errorElement.textContent = '';        
-    }
 }

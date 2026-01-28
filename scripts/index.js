@@ -1,6 +1,6 @@
 import Card from './card.js';
 import FormValidator from './FormValidator.js';
-import { openModal, closeModal, clearFormFields } from './utils.js';
+import { openModal, closeModal, clearFormFields, closePopupOnOverlay } from './utils.js';
 import { initialCards, validationSettings } from './data.js';
 
 const editPopup = document.querySelector(`#edit-popup`);
@@ -94,12 +94,6 @@ function handleCardFormSubmit(evt) {
 }
 
 addCardForm.addEventListener(`submit`, handleCardFormSubmit);
-
-function closePopupOnOverlay(evt) {
-    if (evt.target === evt.currentTarget) {
-        closeModal(evt.target);
-    }
-}
 
 const popups = document.querySelectorAll('.popup');
 popups.forEach((popup) => {
